@@ -2,13 +2,9 @@ version: "3.9"
 services:
   weboo:
     build: .
-      tags:
-      - weboo
     ports:
       - "8000:5000"
-  redis_app:
+  redisapp:
     build: .
-      tags:
-      - redisApps  
     ports:
       - "8001:5001"
