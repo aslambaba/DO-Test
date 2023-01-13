@@ -18,8 +18,7 @@ jobs:
         echo "test_aslam_image" > .env
         cat .env
     - name: Build Compose File
-      uses: isbang/compose-action@v1.4.1
-      run: docker-compose -f docker-compose.yml build
+      run: docker compose -f docker-compose.yml build
     - name: Install doctl 
       run: docker images
 
