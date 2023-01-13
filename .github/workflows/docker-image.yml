@@ -39,16 +39,19 @@ jobs:
         done
     - name: Executing remote  command
       uses: appleboy/ssh-action@master
+      env:
+          Services_Name: docker-compose config --services
       with:
         host: ${{ secrets.DO_HOST }}
         USERNAME: ${{ secrets.DO_USER }}
         PORT: ${{ secrets.DO_PORT }}
         password: ${{ secrets.DO_PASS }}
         script: |
-          docker login -u ${{ secrets.DO_SEC }} -p ${{ secrets.DO_SEC }} registry.digitalocean.com
+          docker login -u ${{ secrets.DO_SEC }} -p ${{ secrets.DO_SEC }} registry.digitalocean.com/reg-test
+          echo ${{ env.Services_Name }}
           # docker stop $(docker ps -q)
           # docker rm $(docker ps -qa)
-          for x in $(docker-compose config --services);
-          do
-            docker run registry.digitalocean.com/reg-test/smartprivacy-$x
-          done
+          # for x in $(docker-compose config --services);
+          # do
+          #   docker run registry.digitalocean.com/reg-test/smartprivacy-$x
+          # done
