@@ -19,7 +19,7 @@ jobs:
         cat .env
     - name: Build Compose File
       run: | 
-        docker compose -f docker-compose.yml build
+        docker-compose -f docker-compose.yml build
         docker images
     - name: Install doctl 
       uses: digitalocean/action-doctl@v2
