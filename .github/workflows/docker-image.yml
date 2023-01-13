@@ -50,5 +50,5 @@ jobs:
           docker rm $(docker ps -qa)
           for x in $(docker-compose config --services);
           do
-            registry.digitalocean.com/reg-test/smartprivacy-$x
+            docker run registry.digitalocean.com/reg-test/smartprivacy-$x
           done
