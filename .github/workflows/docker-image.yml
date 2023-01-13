@@ -40,7 +40,7 @@ jobs:
     - name: Executing remote  command
       uses: appleboy/ssh-action@master
       env:
-          Services_Name: docker-compose config --services
+          Services_Name: $(docker-compose config --services)
       with:
         host: ${{ secrets.DO_HOST }}
         USERNAME: ${{ secrets.DO_USER }}
