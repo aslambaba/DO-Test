@@ -4,6 +4,8 @@ services:
     build: .
     ports:
       - "8000:5000"
-  redis:
-    image: "redis:alpine"
+  redis-app:
+    build: .
+    ports:
+      - "8001:5001"
   
