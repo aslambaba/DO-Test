@@ -1,15 +1,9 @@
-version: '3.5'
+version: "3.9"
 services:
   web:
-    image: nginx
+    build: .
     ports:
-      - 3000:3000
-    volumes:
-      - /var/www/app
-  back:
-    image: node
-    ports:
-      - 3000:3000
-    volumes:
-      - /var/www/app2
+      - "8000:5000"
+  redis:
+    image: "redis:alpine"
   
