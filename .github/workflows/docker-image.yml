@@ -33,7 +33,9 @@ jobs:
       run:
         docker tag smartprivacy_weboo registry.digitalocean.com/reg-test/smartprivacy-weboo
     - name: Push image to DO Container Registry 
-      run: docker push registry.digitalocean.com/reg-test/smartprivacy-weboo
-      # run: docker-compose -f docker-compose.yml push
+      run: |
+        docker push registry.digitalocean.com/reg-test/smartprivacy-weboo
+        docker-compose -f docker-compose.yml images
+        # run: docker-compose -f docker-compose.yml push
         
         
