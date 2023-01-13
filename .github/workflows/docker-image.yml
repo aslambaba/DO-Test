@@ -15,7 +15,7 @@ jobs:
     - name: create ENV
       run: |
         touch .env
-        echo "test_aslam_image" > .env
+        echo "COMPOSE_PROJECT_NAME=my_pro_pro" > .env
         cat .env
     - name: Build Compose File
       run: docker compose -f docker-compose.yml build
