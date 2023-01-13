@@ -19,7 +19,7 @@ jobs:
         cat .env
     - name: Build Compose File
       run: | 
-        docker-compose -f docker-compose.yml -p="yesyes" build
+        docker-compose -f docker-compose.yml -p="registry.digitalocean.com/reg-test/" build
         docker-compose config --services
     - name: Install doctl 
       uses: digitalocean/action-doctl@v2
@@ -29,9 +29,6 @@ jobs:
       run: |
         doctl registry login --expiry-seconds 600
         docker images
-    # - name: Tag image 
-    #   run:
-    #     docker tag smartprivacy_$(docker-compose c) registry.digitalocean.com/reg-test/smartprivacy-weboo
     # - name: Push image to DO Container Registry 
     #   run: |
     #     docker push registry.digitalocean.com/reg-test/smartprivacy-weboo
