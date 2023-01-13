@@ -4,6 +4,12 @@ services:
     image: nginx
     ports:
       - 3000:3000
+    volumes:
+      - /var/www/app
   back:
     image: node
+    ports:
+      - 3000:3000
+    volumes:
+      - /var/www/app2
   
