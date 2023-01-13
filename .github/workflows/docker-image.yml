@@ -20,9 +20,9 @@ jobs:
     - name: Build Compose File
       run: docker compose -f docker-compose.yml build
     - name: Install doctl 
-        uses: digitalocean/action-doctl@v2
-        with:
-          token: ${{ secrets.DO_SEC }}
+      uses: digitalocean/action-doctl@v2
+      with:
+        token: ${{ secrets.DO_SEC }}
     - name: Log in to DO Container Registry 
         run: doctl registry login --expiry-seconds 600
     - name: Push image to DO Container Registry 
