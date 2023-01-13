@@ -29,11 +29,9 @@ jobs:
       run: |
         doctl registry login --expiry-seconds 600
         docker images
-    - name: Tag image 
+    - name: Tag image
+      strategy:
+      matrix:
+        value: docker-compose config --services 
       run:
-        docker tag smartprivacy_$(docker-compose config --services) registry.digitalocean.com/reg-test/smartprivacy-$(docker-compose config --services)
-    - name: Push image to DO Container Registry 
-      run: |
-        docker push registry.digitalocean.com/reg-test/smartprivacy-$(docker-compose config --services)
-        docker-compose -f docker-compose.yml images
-        # run: docker-compose -f docker-compose.yml push
+        echo "${{ matrix.value }}"
