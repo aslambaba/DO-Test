@@ -4,6 +4,8 @@ services:
     build: .
     ports:
       - "8000:5000"
+    container_name: es_master
   redis:
     image: "redis:alpine"
+    container_name: es_master_g
   
