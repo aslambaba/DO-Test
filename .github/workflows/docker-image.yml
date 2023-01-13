@@ -12,8 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: isbang/compose-action@v1.4.1
-      with:
-        compose-file: "docker-compose.yaml"
+      run: docker-compose build
     - name: Install doctl 
       run: docker images
 
