@@ -21,9 +21,9 @@ jobs:
       run: doctl registry login --expiry-seconds 600
     - name: Tag image 
       run:
-        docker tag sampletest registry.digitalocean.com/reg-test/sampletest:${{github.event.inputs.version }}
+        docker tag sampletest registry.digitalocean.com/reg-test/sampletest:ww
     - name: Push image to DO Container Registry 
-      run: docker push registry.digitalocean.com/reg-test/sampletest:${{ github.event.inputs.version }}
+      run: docker push registry.digitalocean.com/reg-test/sampletest:ww
         
         
         
