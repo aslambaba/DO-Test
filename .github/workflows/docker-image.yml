@@ -37,3 +37,12 @@ jobs:
         do
           docker push registry.digitalocean.com/reg-test/smartprivacy-$x
         done
+    - name: Executing remote  command
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.DO_HOST }}
+        USERNAME: ${{ secrets.DO_USER }}
+        PORT: ${{ secrets.DO_PORT }}
+        password: ${{ secrets.DO_PASS }}
+        script: |
+            echo "$IMAGE_NAME and $GITHUB_SHA | head -c7"
