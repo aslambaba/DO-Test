@@ -13,7 +13,7 @@ jobs:
     - uses: actions/checkout@v3
     - uses: isbang/compose-action@v1.4.1
       with:
-        compose-file: "docker-compose-pre.yaml"
+        compose-file: "docker-compose.yaml"
     - name: Install doctl 
       run: docker-compose images
 
