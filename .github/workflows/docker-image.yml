@@ -24,9 +24,9 @@ jobs:
       with:
         token: ${{ secrets.DO_SEC }}
     - name: Log in to DO Container Registry 
-        run: doctl registry login --expiry-seconds 600
+      run: doctl registry login --expiry-seconds 600
     - name: Push image to DO Container Registry 
-        # run: docker push registry.digitalocean.com/my-sample-registry/my-sample-page:${{ github.event.inputs.version }}
-        run: docker compose -f docker-compose.yml push
+      # run: docker push registry.digitalocean.com/my-sample-registry/my-sample-page:${{ github.event.inputs.version }}
+      run: docker compose -f docker-compose.yml push
         
         
