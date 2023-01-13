@@ -20,7 +20,7 @@ jobs:
     - name: Build Compose File
       run: | 
         docker-compose -f docker-compose.yml build
-        docker images
+        docker-compose config --services
     - name: Install doctl 
       uses: digitalocean/action-doctl@v2
       with:
@@ -28,7 +28,7 @@ jobs:
     - name: Log in to DO Container Registry 
       run: |
         doctl registry login --expiry-seconds 600
-        docker-compose -f docker-compose.yml images
+        docker images
     - name: Tag image 
       run:
         docker tag smartprivacy_weboo registry.digitalocean.com/reg-test/smartprivacy-weboo
