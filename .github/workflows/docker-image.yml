@@ -16,7 +16,7 @@ jobs:
     - name: Install doctl 
       uses: digitalocean/action-doctl@v2
       with:
-        token: ${{ secrets.DO-SEC }}
+        token: ${{ secrets.DO_SEC }}
     - name: Log in to DO Container Registry 
       run: doctl registry login --expiry-seconds 600
     - name: Tag image 
