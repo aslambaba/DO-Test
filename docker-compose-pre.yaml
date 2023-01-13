@@ -1,5 +1,4 @@
 version: '3.5'
-​
 services:
   web:
     image: nginx
