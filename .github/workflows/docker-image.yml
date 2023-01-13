@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build . --file Dockerfile --tag sampletest
     - name: Install doctl 
       uses: digitalocean/action-doctl@v2
       with:
@@ -21,9 +21,9 @@ jobs:
       run: doctl registry login --expiry-seconds 600
     - name: Tag image 
       run:
-        docker tag sampletest registry.digitalocean.com/reg-test/sampletest:ww
+        docker tag sampletest registry.digitalocean.com/reg-test/sampletest:${{github.event.inputs.version }}
     - name: Push image to DO Container Registry 
-      run: docker push registry.digitalocean.com/reg-test/sampletest:ww
+      run: docker push registry.digitalocean.com/reg-test/sampletest:${{github.event.inputs.version }}
         
         
         
