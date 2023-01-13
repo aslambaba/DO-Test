@@ -37,5 +37,3 @@ jobs:
         docker push registry.digitalocean.com/reg-test/smartprivacy-weboo
         docker-compose -f docker-compose.yml images
         # run: docker-compose -f docker-compose.yml push
-        
-        
