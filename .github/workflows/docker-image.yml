@@ -29,8 +29,12 @@ jobs:
       run: |
         doctl registry login --expiry-seconds 600
         docker images
+    - name: Tag image 
+      run:
+        docker tag smartprivacy_weboo \
+        registry.digitalocean.com/reg-test/smartprivacy_weboo
     - name: Push image to DO Container Registry 
-      # run: docker push registry.digitalocean.com/my-sample-registry/my-sample-page:${{ github.event.inputs.version }}
-      run: docker-compose -f docker-compose.yml push
+      run: docker push registry.digitalocean.com/reg-test/smartprivacy_weboo
+      # run: docker-compose -f docker-compose.yml push
         
         
