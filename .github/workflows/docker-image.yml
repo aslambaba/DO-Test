@@ -37,10 +37,11 @@ jobs:
         do
           docker push registry.digitalocean.com/reg-test/smartprivacy-$x
         done
+        export Services = docker-compose config --services
     - name: Executing remote  command
       uses: appleboy/ssh-action@master
       env:
-          Services_Name: $(docker-compose config --services)
+          Services_Name: $Services
       with:
         host: ${{ secrets.DO_HOST }}
         USERNAME: ${{ secrets.DO_USER }}
