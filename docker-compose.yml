@@ -3,7 +3,7 @@ services:
   weboo:
     build: .
       tags:
-        - weboo
+      - weboo
     ports:
       - "8000:5000"
   redis_app:
