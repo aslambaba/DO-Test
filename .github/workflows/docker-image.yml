@@ -12,30 +12,27 @@ jobs:
     steps:
     - name: checkout repo
       uses: actions/checkout@v3
-    - name: Print things
+    - name: Build Compose File
+      run: | 
+        docker-compose -f docker-compose.yml -p="Smartprivacy" build
+        docker-compose config --services
+    - name: Install doctl 
+      uses: digitalocean/action-doctl@v2
+      with:
+        token: ${{ secrets.DO_SEC }}
+    - name: Log in to DO Container Registry 
       run: |
-        for x in a,b; do
+        doctl registry login --expiry-seconds 600
+        docker images
+    - name: Tag image 
+      run: |
+        for x in $(docker-compose config --services);
+        do
           echo "$x"
         done
-    # - name: Build Compose File
-    #   run: | 
-    #     docker-compose -f docker-compose.yml -p="Smartprivacy" build
-    #     docker-compose config --services
-    # - name: Install doctl 
-    #   uses: digitalocean/action-doctl@v2
-    #   with:
-    #     token: ${{ secrets.DO_SEC }}
-    # - name: Log in to DO Container Registry 
-    #   run: |
-    #     doctl registry login --expiry-seconds 600
-    #     docker images
-    # - name: Tag image 
-    #   run:
-    #     docker tag smartprivacy_weboo registry.digitalocean.com/reg-test/smartprivacy-weboo
+    # docker tag smartprivacy_weboo registry.digitalocean.com/reg-test/smartprivacy-weboo
     # - name: Push image to DO Container Registry 
     #   run: |
     #     docker push registry.digitalocean.com/reg-test/smartprivacy-weboo
     #     docker-compose -f docker-compose.yml images
     #     # run: docker-compose -f docker-compose.yml push
-        
-        
