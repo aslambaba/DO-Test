@@ -12,15 +12,11 @@ jobs:
     steps:
     - name: checkout repo
       uses: actions/checkout@v3
-    - name: create ENV
-      run: |
-        touch .env
-        echo "COMPOSE_PROJECT_NAME=Smartprivacy" > .env
-        cat .env
     - name: Build Compose File
       run: | 
-        docker-compose -f docker-compose.yml -p="one" -s="two" build
+        docker-compose -f docker-compose.yml -p="Smartprivacy" build
         docker-compose config --services
+        docker-compose images
     - name: Install doctl 
       uses: digitalocean/action-doctl@v2
       with:
