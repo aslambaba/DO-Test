@@ -30,11 +30,10 @@ jobs:
         do
           echo "$x"
           docker tag smartprivacy_$x registry.digitalocean.com/reg-test/smartprivacy-$x
-          docker images
         done
-    # docker tag smartprivacy_weboo registry.digitalocean.com/reg-test/smartprivacy-weboo
-    # - name: Push image to DO Container Registry 
-    #   run: |
-    #     docker push registry.digitalocean.com/reg-test/smartprivacy-weboo
-    #     docker-compose -f docker-compose.yml images
-    #     # run: docker-compose -f docker-compose.yml push
+    - name: Push image to DO Container Registry 
+      run: |
+        for x in $(docker-compose config --services);
+        do
+          docker push registry.digitalocean.com/reg-test/smartprivacy-$x
+        done
