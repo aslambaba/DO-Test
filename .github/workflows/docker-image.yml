@@ -31,6 +31,6 @@ jobs:
         docker images
     - name: Push image to DO Container Registry 
       # run: docker push registry.digitalocean.com/my-sample-registry/my-sample-page:${{ github.event.inputs.version }}
-      run: docker compose -f docker-compose.yml push
+      run: docker-compose -f docker-compose.yml push
         
         
