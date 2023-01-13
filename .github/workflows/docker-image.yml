@@ -45,4 +45,10 @@ jobs:
         PORT: ${{ secrets.DO_PORT }}
         password: ${{ secrets.DO_PASS }}
         script: |
-            echo "$IMAGE_NAME and $GITHUB_SHA | head -c7"
+          docker login -u ${{ secrets.DO_SEC }} -p ${{ secrets.DO_SEC }} registry.digitalocean.com
+          docker stop $(docker ps -q)
+          docker rm $(docker ps -qa)
+          for x in $(docker-compose config --services);
+          do
+            registry.digitalocean.com/reg-test/smartprivacy-$x
+          done
