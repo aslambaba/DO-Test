@@ -11,29 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag sampletest
+    - uses: isbang/compose-action@v1.4.1
+      with:
+        compose-file: ".docker-compose-pre.yaml"
     - name: Install doctl 
-      uses: digitalocean/action-doctl@v2
-      with:
-        token: ${{ secrets.DO_SEC }}
-    - name: Log in to DO Container Registry 
-      run: doctl registry login --expiry-seconds 600
-    - name: Tag image 
-      run:
-        docker tag sampletest registry.digitalocean.com/reg-test/sampletest
-    - name: Push image to DO Container Registry 
-      run: docker push registry.digitalocean.com/reg-test/sampletest
-    - uses: actions/checkout@v2
-    - name: Executing remote  command
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.DO_HOST }}
-        USERNAME: ${{ secrets.DO_USER }}
-        PORT: ${{ secrets.DO_PORT }}
-        password: ${{ secrets.DO_PASS }}
-        script: |
-              mkdir /aslambaba
+      run: docker-compose images
 
         
         
