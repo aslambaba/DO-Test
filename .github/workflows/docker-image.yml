@@ -31,7 +31,7 @@ jobs:
         docker images
     - name: Tag image
       strategy:
-      matrix:
-        value: docker-compose config --services 
+        matrix:
+          value: docker-compose config --services 
       run:
         echo "${{ matrix.value }}"
