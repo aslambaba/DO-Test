@@ -1,0 +1,30 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - name: Install doctl 
+      uses: digitalocean/action-doctl@v2
+      with:
+        token: ${{ secrets.DO-SEC }}
+    - name: Log in to DO Container Registry 
+      run: doctl registry login --expiry-seconds 600
+    - name: Tag image 
+      run:
+        docker tag sample/my-page \
+        registry.digitalocean.com/reg-test:${{github.event.inputs.version }}
+    - name: Push image to DO Container Registry 
+      run: docker push registry.digitalocean.com/reg-test:${{ github.event.inputs.version }}
+        
+        
+        
