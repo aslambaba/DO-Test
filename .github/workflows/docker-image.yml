@@ -29,9 +29,12 @@ jobs:
       run: |
         doctl registry login --expiry-seconds 600
         docker images
-    - name: Tag image
-      strategy:
-        matrix:
-          value: docker-compose config --services 
+  tag:
+    needs: [ build ]
+    strategy:
+      matrix:
+        value: docker-compose config --services 
+    steps:
+    - name: Echo
       run:
         echo "${{ matrix.value }}"
