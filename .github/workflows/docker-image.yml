@@ -15,7 +15,7 @@ jobs:
       with:
         compose-file: "docker-compose.yaml"
     - name: Install doctl 
-      run: docker-compose images
+      run: docker images
 
         
         
