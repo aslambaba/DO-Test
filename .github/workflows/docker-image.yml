@@ -37,7 +37,6 @@ jobs:
         do
           docker push registry.digitalocean.com/reg-test/smartprivacy-$x
         done
-        export Services = $(docker-compose config --services)
     - name: Executing remote  command
       uses: appleboy/ssh-action@master
       env:
@@ -49,10 +48,4 @@ jobs:
         password: ${{ secrets.DO_PASS }}
         script: |
           docker login -u ${{ secrets.DO_SEC }} -p ${{ secrets.DO_SEC }} registry.digitalocean.com/reg-test
-          echo ${{ env.Services_Name }}
-          # docker stop $(docker ps -q)
-          # docker rm $(docker ps -qa)
-          # for x in $(docker-compose config --services);
-          # do
-          #   docker run registry.digitalocean.com/reg-test/smartprivacy-$x
-          # done
+          echo "login to Droplet"
