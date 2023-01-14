@@ -1,0 +1,53 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout repo
+      uses: actions/checkout@v3
+    - name: Build Compose File
+      run: | 
+        docker-compose -f docker-compose.yml -p="smartprivacy" build
+        docker-compose config --services
+    - name: Install doctl 
+      uses: digitalocean/action-doctl@v2
+      with:
+        token: ${{ secrets.DO_SEC }}
+    - name: Log in to DO Container Registry 
+      run: |
+        doctl registry login --expiry-seconds 600
+        docker images
+    - name: Tag image 
+      run: |
+        for x in $(docker-compose config --services);
+        do
+          echo "$x"
+          docker tag smartprivacy_$x registry.digitalocean.com/reg-test/smartprivacy-$x
+        done
+    - name: Push image to DO Container Registry 
+      run: |
+        for x in $(docker-compose config --services);
+        do
+          docker push registry.digitalocean.com/reg-test/smartprivacy-$x
+        done
+    - name: Executing remote  command
+      uses: appleboy/ssh-action@master
+      env:
+          Services_Name: $Services
+      with:
+        host: ${{ secrets.DO_HOST }}
+        USERNAME: ${{ secrets.DO_USER }}
+        PORT: ${{ secrets.DO_PORT }}
+        password: ${{ secrets.DO_PASS }}
+        script: |
+          docker login -u ${{ secrets.DO_SEC }} -p ${{ secrets.DO_SEC }} registry.digitalocean.com/reg-test
+          git clone https://github.com/aslambaba/DO-Test
+          cd Do-Test/
+          docker-compose -f docker-compose.yml up
